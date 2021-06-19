@@ -1,0 +1,4 @@
+# Ignoring real hosts file
+hosts
+
+playbook.retry

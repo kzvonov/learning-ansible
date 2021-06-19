@@ -1,0 +1,5 @@
+---
+create_containers: 1
+default_container_name: my-nginx
+default_container_image: nginx
+default_container_command:

@@ -1,0 +1,76 @@
+---
+- name: "It creates a non root user"
+  hosts: base
+  remote_user: root
+
+  vars:
+    authorized_pub_keys:
+      - ""
+
+  vars_prompt:
+
+    - name: "user_name"
+      prompt: "Enter a name for the new user"
+      private: no
+      confirm: yes
+
+    - name: "user_password"
+      prompt: "Enter a password for the new user"
+      private: yes
+      confirm: yes
+      encrypt: "sha512_crypt"
+      salt_size: 10
+
+  tasks:
+
+    - name: Check to make sure we have a 'wheel' group
+      group:
+        name: wheel
+        state: present
+
+    - name: Install the 'sudo' package
+      apt:
+        name: sudo
+        state: latest
+
+    - name: Allow users from 'wheel' use sudo
+      lineinfile:
+        dest: /etc/sudoers
+        state: present
+        regexp: '^%wheel'
+        line: '%wheel ALL=(ALL) ALL'
+        validate: 'visudo -cf %s'
+
+    - name: Create the non-root user
+      user:
+        name: "{{ user_name }}"
+        password: "{{ user_password }}"
+        shell: "/bin/bash"
+        groups: "wheel"
+
+    - name: Add local public key for key-based SSH authentication
+      authorized_key:
+        user: "{{ user_name }}"
+        key: "{{ item }}"
+      with_file: "{{ authorized_pub_keys }}"
+
+    - name: Restrict root SSH logins
+      lineinfile:
+        dest: /etc/ssh/sshd_config
+        state: present
+        regexp: "^#PermitRootLogin"
+        line: "PermitRootLogin no"
+
+    - name: Restrict SSH logins to keys only
+      lineinfile:
+        dest: /etc/ssh/sshd_config
+        state: present
+        regexp: '^#PasswordAuthentication'
+        line: 'PasswordAuthentication no'
+
+  handlers:
+    - name: Restart sshd
+      service:
+        name: sshd
+        state: restarted
+        daemon_reload: yes
