@@ -1,0 +1,9 @@
+base:
+  hosts:
+    base1:
+      ansible_host: {ip_address}
+
+  vars:
+    ansible_user_name: ansible
+    ansible_user_pub_keys:
+      - path/to/pub/key

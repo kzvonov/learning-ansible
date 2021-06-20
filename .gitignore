@@ -1,4 +1,8 @@
 # Ignoring real hosts file
 hosts
+hosts.yml
+hosts.yaml
 
 playbook.retry
+
+VAR_*
