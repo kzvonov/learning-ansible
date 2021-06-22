@@ -2,6 +2,9 @@
 hosts
 hosts.yml
 hosts.yaml
+inventory
+inventory.yml
+inventory.yaml
 
 playbook.retry
 

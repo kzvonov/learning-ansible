@@ -1,0 +1,27 @@
+---
+- name: Ensure `wheel` group is present
+  group:
+    name: wheel
+    state: present
+
+- name: Ensure `wheel` group has root privileges
+  lineinfile:
+    dest: /etc/sudoers
+    state: present
+    regexp: "^%wheel"
+    line: "%wheel ALL=(ALL:ALL) ALL"
+    validate: "/usr/sbin/visudo -cf %s"
+
+- name: Install the `sudo` package
+  package:
+    name: sudo
+    state: latest
+
+- name: Create the non-root user account
+  user:
+    name: "{{ ansible_user_name }}"
+    password: "{{ ansible_user_pass }}"
+    shell: /bin/bash
+    update_password: on_create
+    groups: wheel
+    append: yes

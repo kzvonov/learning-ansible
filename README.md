@@ -14,45 +14,35 @@ This's a collection of Ansible recipes I'm building for myself for educational p
 
 ## First Steps
 
-Run below commands:
+First of all, you need to run Base.v2 playbook.
+
+Run the below commands:
 
 ```bash
-cd ./Base
+cd ./Base.v2
 
 cp hosts.sample.yml hosts.yml
 ```
 
-Updated your new `hosts.yml` like so:
+Then open `hosts.yml` & fill `vars:` with the data. Be carefull with `ansible_user_pass`, there're additional instructions!
 
-```yml
-base:
-  hosts:
-    base1:
-      ansible_host: 127.0.0.1 # REAL IP HERE
-    base2:
-      ansible_host: 127.0.0.2 # Another serer IP if you need more
-
-  vars:
-    ansible_user_name: ansible
-    ansible_user_pub_keys:
-      - ~/.ssh/id_rsa.pub # You need to specify public key path here
-
-```
-
-Run the command:
+When it's done you can run the playbook:
 
 ```bash
 ansible-playbook \
-    -i ./hosts.yml \
-    --key-file ~/.ssh/id_rsa.pub \ # (1) in case of ssh key
-    -k \ # (2) in case if you know the password
-    create_ansible_user.yml
+  -i ./hosts.yml \
+  --key-file ~/path/to/your/key \ # If your server configure to use root with key
+  -k \ # If it's root user with passwored
+  provision.yml
 ```
 
-Done! Now you have the special user for other playbooks!
+That's it! Your new user from `hosts.yml:vars` is ready to use.
+
+Please, use this user for other playbooks. Since it's not okay to run playbooks unde `root` user.
 
 ## Todo MySQL
 
 * [Step By Step](https://blog.ssdnodes.com/blog/step-by-step-ansible-guide/)
-* Part 1: https://blog.ssdnodes.com/blog/secure-ansible-playbook/
-* Part 2: https://blog.ssdnodes.com/blog/secure-ansible-playbook-2/
+* [Secure Playbook Part 1](https://blog.ssdnodes.com/blog/secure-ansible-playbook/)
+* [Secure Playbook Part 2](https://blog.ssdnodes.com/blog/secure-ansible-playbook-2/)
+* [Security Audit](https://blog.ssdnodes.com/blog/tutorial-vps-security-audits-using-lynis/)

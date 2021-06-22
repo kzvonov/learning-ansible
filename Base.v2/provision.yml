@@ -1,0 +1,22 @@
+---
+- name: Provision a new server with hardened SSH and basic iptables.
+
+  # Specify the hosts you want to target
+  hosts: all
+
+  # Specify the user you want to connect to the server.
+  # With a new installation, you will connect with `root`. If you want to
+  # re-run this playbook at a later date, you should change `remote_user` to
+  # the user you specified under `hosts.yml:var/ansible_user_name` below 
+  # and uncomment the `become: true` line.
+  # You should then run the playbook using the
+  # `--ask-become-pass` flag, like so:
+  # `ansible-playbook -i ./hosts.yml --key-file ~/path/to/key --ask-become-pass provision.yml`.
+  remote_user: root
+  # become: true
+
+  roles:
+    - user
+    - packages
+    - ssh
+    - iptables
