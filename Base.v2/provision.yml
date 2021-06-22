@@ -20,3 +20,4 @@
     - packages
     - ssh
     - iptables
+    - fail2ban
