@@ -1,0 +1,28 @@
+---
+- name: Set the default MySQL user pass
+  debconf:
+    name: mysql-server-5.7
+    question: mysql-server/root_password
+    vtype: password
+    value: "{{ mysql_root_pass }}"
+    
+
+- name: Confirm the default MySQL user pass
+  debconf:
+    name: mysql-server-5.7
+    question: mysql-server/root_password_again
+    vtype: password
+    value: "{{ mysql_root_pass }}"
+    
+- name: Install MySQL
+  package:
+    name: "{{ item }}"
+    state: present
+  with_items:
+    - mysql-server
+  environment:
+    DEBIAN_FRONTEND: noninteractive
+
+# - name: Run `mysql_secure_installation`
+#   shell: mysql_secure_installation
+

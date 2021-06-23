@@ -1,0 +1,14 @@
+---
+- name: Install basic utilities
+  package:
+    name: "{{ item }}"
+    state: present
+  with_items:
+    - vim
+    - tmux
+    - curl
+    - wget
+    - htop
+    - zip
+    - unzip
+    - pigz

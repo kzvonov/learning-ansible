@@ -1,0 +1,9 @@
+mysql:
+  hosts:
+    127.0.0.1: # Replace with your server IP, but keep `:`
+
+  vars:
+    # User to login from
+    user_name: SPECIFY_USER_NAME
+
+    mysql_root_pass: SPECIFY_USER_PASS

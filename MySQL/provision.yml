@@ -1,0 +1,15 @@
+---
+- name: Provision a new server dedicated to MySQL
+
+  # Specify the hosts you want to target
+  hosts: mysql
+
+  # Specify the user which ansible is going to use
+  remote_user: "{{ user_name }}"
+  # This is to run command with sudo
+  become: true
+
+  roles:
+    - packages
+    - mysql
+    - iptables
