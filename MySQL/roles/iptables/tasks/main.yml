@@ -37,7 +37,7 @@
 - name: Firewall rule - allow port 3306/MySQL traffic
   iptables:
     chain: INPUT
-    destination_port: 443
+    destination_port: 3306
     jump: ACCEPT
     protocol: tcp
 
@@ -54,3 +54,11 @@
     - iptables-persistent
     - netfilter-persistent
   when: ansible_os_family == "Debian"
+
+- name: Save iptables rules
+  shell: service netfilter-persistent save
+
+- name: Restart iptables service
+  service:
+    name: netfilter-persistent
+    state: restarted
