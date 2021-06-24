@@ -3,7 +3,23 @@ mysql:
     127.0.0.1: # Replace with your server IP, but keep `:`
 
   vars:
-    # User to login from
+    # User to login to the server
     user_name: SPECIFY_USER_NAME
 
     mysql_root_pass: SPECIFY_USER_PASS
+    mysql_user_name: SPECIFY_USER_NAME
+    mysql_user_pass: SPECIFY_USER_PASS
+
+    # Users.
+    mysql_users: []
+    #   - name: example
+    #     host: 127.0.0.1
+    #     password: secret
+    #     priv: *.*:USAGE
+
+    # Databases.
+    mysql_databases: []
+    #   - name: example
+    #     collation: utf8_general_ci
+    #     encoding: utf8
+    #     replicate: 1

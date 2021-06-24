@@ -5,7 +5,6 @@
     question: mysql-server/root_password
     vtype: password
     value: "{{ mysql_root_pass }}"
-    
 
 - name: Confirm the default MySQL user pass
   debconf:
@@ -14,15 +13,24 @@
     vtype: password
     value: "{{ mysql_root_pass }}"
     
+# TODO: Install a specific version of mysql 5.7
 - name: Install MySQL
   package:
     name: "{{ item }}"
     state: present
   with_items:
+    - mysql-common
     - mysql-server
+    - pip # For pymysql
   environment:
     DEBIAN_FRONTEND: noninteractive
 
-# - name: Run `mysql_secure_installation`
-#   shell: mysql_secure_installation
+- name: Make sure pymysql is present
+  pip:
+    name: pymysql
+    state: present
 
+- include_tasks: configure.yml
+- include_tasks: secure_installation.yml
+- include_tasks: databases.yml
+- include_tasks: users.yml

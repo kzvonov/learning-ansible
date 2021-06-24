@@ -40,9 +40,17 @@ That's it! Your new user from `hosts.yml:vars` is ready to use.
 
 Please, use this user for other playbooks. Since it's not okay to run playbooks unde `root` user.
 
-## Todo MySQL
+## MySQL
 
-* [Step By Step](https://blog.ssdnodes.com/blog/step-by-step-ansible-guide/)
-* [Secure Playbook Part 1](https://blog.ssdnodes.com/blog/secure-ansible-playbook/)
-* [Secure Playbook Part 2](https://blog.ssdnodes.com/blog/secure-ansible-playbook-2/)
-* [Security Audit](https://blog.ssdnodes.com/blog/tutorial-vps-security-audits-using-lynis/)
+A guide to the MySQL playbook.
+
+```bash
+cd ./MySQL
+
+# Install community.mysql Ansible module
+# We need it to configure MySQL on the remote servers
+ansible-galaxy collection install -r ./requirements.yml
+
+# Copy inventory & fill with your data
+cp ./inventory.sample.yml ./inventory.yml 
+```

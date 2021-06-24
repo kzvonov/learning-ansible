@@ -1,0 +1,9 @@
+---
+- name: Copy my.cnf MySQL configuration for root user.
+  template:
+    src: "../templates/root.my.cnf.j2"
+    dest: "/root/.my.cnf"
+    owner: root
+    group: root
+    mode: 0644
+  notify: restart mysql
