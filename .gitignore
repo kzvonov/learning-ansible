@@ -9,3 +9,5 @@ inventory.yaml
 playbook.retry
 
 VAR_*
+
+NOTES.md
