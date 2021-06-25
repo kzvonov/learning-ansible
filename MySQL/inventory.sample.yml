@@ -9,6 +9,8 @@ mysql:
     mysql_root_pass: SPECIFY_USER_PASS
     mysql_user_name: SPECIFY_USER_NAME
     mysql_user_pass: SPECIFY_USER_PASS
+    mysql_access_from_ips:
+      - '127.0.0.1'
 
     # Users.
     mysql_users: []

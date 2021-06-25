@@ -21,11 +21,10 @@
   with_items:
     - mysql-common
     - mysql-server
-    - pip # For pymysql
   environment:
     DEBIAN_FRONTEND: noninteractive
 
-- name: Make sure pymysql is present
+- name: Install MySQL Python library for Ansible
   pip:
     name: pymysql
     state: present

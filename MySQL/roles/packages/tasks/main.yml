@@ -12,3 +12,4 @@
     - zip
     - unzip
     - pigz
+    - pip # !Improtant, for pymysql

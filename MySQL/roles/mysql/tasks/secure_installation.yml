@@ -1,14 +1,20 @@
 ---
 - name: Ensure default user is present
   mysql_user:
-    host: "{{ item }}"
     name: "{{ mysql_user_name }}"
     password: "{{ mysql_user_pass }}"
     priv: '*.*:ALL,GRANT'
     state: present
-  with_items:
-    - 'localhost'
-    - '*'
+    host: "{{ item }}"
+  with_items: "{{ mysql_access_from_ips }}"
+
+- name: Ensure default user is present
+  mysql_user:
+    name: "{{ mysql_user_name }}"
+    password: "{{ mysql_user_pass }}"
+    priv: '*.*:ALL,GRANT'
+    state: present
+    host: "{{ ansible_ssh_host }}"
 
 - name: Dissalow root login remotely
   command: 'mysql -NBe "{{ item }}"'
@@ -23,4 +29,6 @@
     state: absent
 
 - name: Remove MySQL test database.
-  mysql_db: "name='test' state=absent"
+  mysql_db:
+    name: test
+    state: absent
