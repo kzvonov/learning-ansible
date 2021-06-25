@@ -2,12 +2,14 @@
 - name: Upgrading all packages (Ubuntu/Debian)
   apt:
     upgrade: dist
+    update_cache: yes
   when: ansible_os_family == 'Debian' or ansible_os_family == "Ubuntu"
 
 - name: Upgading all packange (CentOS)
   yum:
     name: '*'  
     state: latest
+    update_cache: yes
   when: ansible_os_family == 'RedHat'
 
 - name: Install a few more packages
