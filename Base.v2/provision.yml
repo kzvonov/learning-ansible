@@ -12,8 +12,8 @@
   # You should then run the playbook using the
   # `--ask-become-pass` flag, like so:
   # `ansible-playbook -i ./hosts.yml --key-file ~/path/to/key --ask-become-pass provision.yml`.
-  remote_user: root
-  # become: true
+  remote_user: "{{ login_as_user }}"
+  become: "{{ use_sudo }}"
 
   roles:
     - user

@@ -3,6 +3,9 @@ base:
     127.0.0.1: # Replace with your server IP, but keep `:`
 
   vars:
+    login_as_user: root
+    use_sudo: no
+
     ansible_user_name: SPECIFY_USER_NAME
     # Before first using the playbook, run the below command to create a hashed
     # password that Ansible will assign to your new user.
