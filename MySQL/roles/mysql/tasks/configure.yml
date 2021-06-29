@@ -1,3 +1,5 @@
+# This configuration is not right! It's not secure at all!
+# TODO: update the cofiguration!
 ---
 - name: Copy my.cnf MySQL configuration for root user.
   template:
