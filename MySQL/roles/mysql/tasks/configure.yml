@@ -8,3 +8,21 @@
     mode: 0644
   notify:
     - Restart MySQL
+
+- name: Update MySQL `bind-address` configuration
+  lineinfile:
+    path: "/etc/mysql/mysql.conf.d/mysqld.cnf"
+    regexp: '^#?\s*bind-address\s+=\s+.+'
+    line: 'bind-address = 0.0.0.0'
+    state: present
+  notify:
+    - Restart MySQL
+
+- name: Update MySQL `mysqlx-bind-address` configuration
+  lineinfile:
+    path: "/etc/mysql/mysql.conf.d/mysqld.cnf"
+    regexp: '^#?\s*mysqlx-bind-address\s+=\s+.+'
+    line: 'mysqlx-bind-address = 0.0.0.0'
+    state: present
+  notify:
+    - Restart MySQL
