@@ -1,0 +1,46 @@
+---
+- name: Docker - install necessary packages
+  package:
+    name: "{{ item }}"
+    state: present
+    update_cache: true
+  with_items:
+    - apt-transport-https
+    - ca-certificates
+    - curl
+    - gnupg
+    - lsb-release
+
+- name: Docker - add official GPG key
+  apt_key:
+    url: "https://download.docker.com/linux/ubuntu/gpg"
+    state: present
+
+- name: Docker - get ubuntu's release
+  command: "lsb_release -cs"
+  register: ubuntu_release
+  changed_when: false
+
+- name: Docker - add official repository
+  apt_repository:
+    repo: >
+      deb https://download.docker.com/linux/ubuntu
+      {{ ubuntu_release.stdout }} stable
+    state: present
+
+- name: Docker - installing engine
+  package:
+    name: "{{ item }}"
+    state: present
+    update_cache: true
+  with_items:
+    - docker-ce
+    - docker-ce-cli
+    - containerd.io
+
+- name: Docker - validate installation
+  command: docker -v
+
+# - name: Install Docker Module for Python
+#   pip:
+#     name: docker

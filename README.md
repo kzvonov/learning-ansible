@@ -65,3 +65,8 @@ cp ./inventory.sample.yml ./inventory.yml
 5. Configure firewall to accept connections only from private IP(s) of app server(s)
 6. Create a databases. Creaet user and allow him to connect from App server(s) with privileges only for these databases
 7. That's it! According to my current understanding you're secure!
+
+
+## Docker
+
+[Guide By Digital Ocean](https://www.digitalocean.com/community/tutorials/how-to-use-ansible-to-install-and-set-up-docker-on-ubuntu-18-04)

@@ -1,0 +1,14 @@
+---
+- name: Setup server with Docker & docker-compose
+
+  hosts: docker
+  
+  remote_user: "{{ login_user }}"
+  become: "{{ use_sudo }}"
+
+  gather_facts: true
+
+  roles:
+    # - packages
+    # - user
+    - docker
