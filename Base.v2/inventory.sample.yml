@@ -9,6 +9,7 @@ base:
     ansible_user_name: SPECIFY_USER_NAME
     # Before first using the playbook, run the below command to create a hashed
     # password that Ansible will assign to your new user.
-    # python3 -c 'import crypt; print(crypt.crypt("SPECIFY_USER_PASS", "$1$SPECIFY_YOUR_SALT$"))'
+    # Run `python3 password.py` and take a note of password and hash.
+    # Put the given hash bellow ->
     ansible_user_pass: PUT_HASH_FROM_THE_ABOVE_HERE
     ansible_user_pub_key_path: ~/path/to/public/key_file.pub
