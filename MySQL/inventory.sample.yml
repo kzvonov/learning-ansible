@@ -3,21 +3,24 @@ mysql:
     127.0.0.1: # Replace with your server IP, but keep `:`
 
   vars:
-    # User to login to the server
-    user_name: SPECIFY_USER_NAME
+    # Connection Settings
+    login_as_user: SPECIFY_USER_NAME
+    # If you need to use sudo - yes, otherwise - no
+    use_sudo: no
+    # Specify private key of `login_as_user`
+    ansible_ssh_private_key_file: /path/to/user/secret/key
+    # Specify password of `login_as_user` to use sudo
+    ansible_become_password: password
 
+    # MySQL Settings
     mysql_root_pass: SPECIFY_USER_PASS
     mysql_user_name: SPECIFY_USER_NAME
     mysql_user_pass: SPECIFY_USER_PASS
     mysql_access_from_ips:
+      - 'localhost'
       - '127.0.0.1'
-
-    # Users.
-    mysql_users: []
-    #   - name: example
-    #     host: 127.0.0.1
-    #     password: secret
-    #     priv: *.*:USAGE
+      - '::1'
+      - '%' # CAREFUL! This will allow to login to MySQL from any domain!
 
     # Databases.
     mysql_databases: []
@@ -25,3 +28,11 @@ mysql:
     #     collation: utf8_general_ci
     #     encoding: utf8
     #     replicate: 1
+
+
+    # Users.
+    mysql_users: []
+    #   - name: example
+    #     host: 127.0.0.1
+    #     password: secret
+    #     priv: *.*:USAGE

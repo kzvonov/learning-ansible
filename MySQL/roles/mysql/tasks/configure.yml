@@ -1,7 +1,7 @@
 # This configuration is not right! It's not secure at all!
 # TODO: update the cofiguration!
 ---
-- name: Copy my.cnf MySQL configuration for root user.
+- name: MySQL Configuration - copy my.cnf configuration for root user.
   template:
     src: "../templates/root.my.cnf.j2"
     dest: "/root/.my.cnf"
@@ -11,20 +11,20 @@
   notify:
     - Restart MySQL
 
-- name: Update MySQL `bind-address` configuration
+- name: MySQL Configuration - update `bind-address` setting
   lineinfile:
     path: "/etc/mysql/mysql.conf.d/mysqld.cnf"
     regexp: '^#?\s*bind-address\s+=\s+.+'
-    line: 'bind-address = 0.0.0.0'
+    line: "bind-address = {{ mysql_config.bind_address }}"
     state: present
   notify:
     - Restart MySQL
 
-- name: Update MySQL `mysqlx-bind-address` configuration
+- name: MySQL Configuration - update `mysqlx-bind-address` setting 
   lineinfile:
     path: "/etc/mysql/mysql.conf.d/mysqld.cnf"
     regexp: '^#?\s*mysqlx-bind-address\s+=\s+.+'
-    line: 'mysqlx-bind-address = 0.0.0.0'
+    line: "mysqlx-bind-address = {{ mysql_config.bind_address }}"
     state: present
   notify:
     - Restart MySQL

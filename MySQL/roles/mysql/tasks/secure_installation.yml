@@ -1,5 +1,5 @@
 ---
-- name: Ensure default user is present
+- name: MySQL Security - ensure default user is present
   mysql_user:
     name: "{{ mysql_user_name }}"
     password: "{{ mysql_user_pass }}"
@@ -8,27 +8,19 @@
     host: "{{ item }}"
   with_items: "{{ mysql_access_from_ips }}"
 
-- name: Ensure default user is present
-  mysql_user:
-    name: "{{ mysql_user_name }}"
-    password: "{{ mysql_user_pass }}"
-    priv: '*.*:ALL,GRANT'
-    state: present
-    host: "{{ ansible_ssh_host }}"
-
-- name: Dissalow root login remotely
+- name: MySQL Security - dissalow root login remotely
   command: 'mysql -NBe "{{ item }}"'
   with_items:
     - "DELETE FROM mysql.user WHERE User='root' AND Host NOT IN ('localhost', '127.0.0.1', '::1')"
   changed_when: false
 
-- name: Removes all anonymous user accounts
+- name: MySQL Security - removes all anonymous user accounts
   mysql_user:
     name: ''
     host_all: yes
     state: absent
 
-- name: Remove MySQL test database.
+- name: MySQL Security - remove MySQL test database.
   mysql_db:
     name: test
     state: absent

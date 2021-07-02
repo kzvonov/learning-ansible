@@ -40,7 +40,7 @@ That's it! Your new user from `hosts.yml:vars` is ready to use.
 
 Please, use this user for other playbooks. Since it's not okay to run playbooks unde `root` user.
 
-## MySQL
+## MySQL (needs to be updated)
 
 A guide to the MySQL playbook.
 
@@ -54,3 +54,14 @@ ansible-galaxy collection install -r ./requirements.yml
 # Copy inventory & fill with your data
 cp ./inventory.sample.yml ./inventory.yml 
 ```
+
+## MySQL Security Rules
+
+1. Remove access from all hosts for root user except localhost
+2. Remove anonymous users
+3. Remove test database
+4. Create your own user with all privileges and allow to login from private IP(VPC IP) of the app server(s) - this's your new 'root'
+4. Change `bind-address` setting from `/etc/mysql/mysql.conf.d/mysqld.cnf` to private IP(VPC IP) of the DB server
+5. Configure firewall to accept connections only from private IP(s) of app server(s)
+6. Create a databases. Creaet user and allow him to connect from App server(s) with privileges only for these databases
+7. That's it! According to my current understanding you're secure!

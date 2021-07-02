@@ -1,12 +1,12 @@
 ---
-- name: Set the default MySQL user pass
+- name: MySQL Installation - set the default root pass
   debconf:
     name: mysql-server-5.7
     question: mysql-server/root_password
     vtype: password
     value: "{{ mysql_root_pass }}"
 
-- name: Confirm the default MySQL user pass
+- name: MySQL Installation - confirm the default root pass
   debconf:
     name: mysql-server-5.7
     question: mysql-server/root_password_again
@@ -14,7 +14,7 @@
     value: "{{ mysql_root_pass }}"
     
 # TODO: Install a specific version of mysql 5.7
-- name: Install MySQL
+- name: MySQL Installation - install
   package:
     name: "{{ item }}"
     state: present
@@ -24,7 +24,7 @@
   environment:
     DEBIAN_FRONTEND: noninteractive
 
-- name: Install MySQL Python library for Ansible
+- name: MySQL Installation - install mysql python library for ansible
   pip:
     name: pymysql
     state: present

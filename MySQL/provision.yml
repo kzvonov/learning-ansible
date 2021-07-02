@@ -5,9 +5,9 @@
   hosts: mysql
 
   # Specify the user which ansible is going to use
-  remote_user: "{{ user_name }}"
+  remote_user: "{{ login_as_user }}"
   # This is to run command with sudo
-  become: true
+  become: "{{ use_sudo }}"
 
   roles:
     - packages
