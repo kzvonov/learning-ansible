@@ -1,0 +1,17 @@
+redis:
+  hosts:
+    127.0.0.1: # Replace with your server Public IP
+
+  vars:
+    login_as_user: root
+    # Specify private key of `login_as_user` user
+    ansible_ssh_private_key_file: ~/path/to/secret/key
+
+    use_sudo: false
+    # Uncomment the next line in case of `use_sudo` == true
+    # ansible_become_password: PUT `run_from_user` pass here
+
+    redis_bind_address: ??? # Replace with Server's Private IP
+    allow_access_from_private_ips: []
+    #  - PUT PRIVATE IPS HERE
+    #  - OR HERE

@@ -1,0 +1,69 @@
+---
+- name: Install the `iptables` package
+  package:
+    name: iptables
+    state: latest
+
+- name: Flush existing firewall rules
+  iptables:
+    flush: true
+  notify:
+    - Save firewall rules
+    - Restart firewall
+
+- name: Firewall rule - allow all loopback traffic
+  iptables:
+    action: append
+    chain: INPUT
+    in_interface: lo
+    jump: ACCEPT
+  notify:
+    - Save firewall rules
+    - Restart firewall
+
+- name: Firewall rule - allow established connections
+  iptables:
+    chain: INPUT
+    ctstate: ESTABLISHED,RELATED
+    jump: ACCEPT
+  notify:
+    - Save firewall rules
+    - Restart firewall
+
+- name: Firewall rule - allow port 22/SSH traffic
+  iptables:
+    chain: INPUT
+    destination_port: 22
+    jump: ACCEPT
+    protocol: tcp
+  notify:
+    - Save firewall rules
+    - Restart firewall
+
+- name: Firewall rule - allow port 6379/Redis traffic
+  iptables:
+    chain: INPUT
+    source: "{{ item }}"
+    destination_port: 6379
+    jump: ACCEPT
+    protocol: tcp
+  with_items: "{{ allow_access_from_private_ips }}"
+  notify:
+    - Save firewall rules
+    - Restart firewall
+
+- name: Firewall rule - drop any traffic without rule
+  iptables:
+    chain: INPUT
+    jump: DROP
+  notify:
+    - Save firewall rules
+    - Restart firewall
+
+- name: Install `netfilter-persistent` && `iptables-persistent` packages
+  apt:
+    name: "{{item}}"
+    state: present
+  with_items:
+    - iptables-persistent
+    - netfilter-persistent

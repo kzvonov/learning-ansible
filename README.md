@@ -70,3 +70,16 @@ cp ./inventory.sample.yml ./inventory.yml
 ## Docker
 
 [Guide By Digital Ocean](https://www.digitalocean.com/community/tutorials/how-to-use-ansible-to-install-and-set-up-docker-on-ubuntu-18-04)
+
+
+## Redis
+
+```bash
+cd ./Redis
+
+cp hosts.sample.yml hosts.yml
+
+# Update `hosts.yml` with your value
+
+bash run.sh
+```

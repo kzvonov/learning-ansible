@@ -1,0 +1,17 @@
+---
+- name: Install Redis(server, cli)
+  apt:
+    name: redis-server
+    state: present
+    update_cache: yes
+  with_items:
+    - redis-server
+    - redis-cli
+
+- name: Allow to connect to Redis from `redis_bind_address`
+  lineinfile:
+    path: /etc/redis/redis.conf
+    regexp: '^bind\s+127\.0\.0\.1(\s+::1)?'
+    line: "bind 127.0.0.1 ::1 {{ redis_bind_address }}"
+  notify:
+    - Restart Redis server

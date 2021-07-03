@@ -11,3 +11,7 @@ playbook.retry
 VAR_*
 
 NOTES.md
+
+
+# Ignore vscode
+.vscode

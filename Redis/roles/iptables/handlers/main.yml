@@ -1,0 +1,9 @@
+---
+- name: Save firewall rules
+  command: 'netfilter-persistent save'
+  changed_when: false
+
+- name: Restart firewall
+  service:
+    name: netfilter-persistent
+    state: restarted

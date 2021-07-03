@@ -1,0 +1,13 @@
+---
+- name: Setup a Redis server
+
+  hosts: redis
+  gather_facts: true
+
+  user: "{{ login_as_user }}"
+  become: "{{ use_sudo }}"
+
+  roles:
+    - redis
+    - iptables
+    - fail2ban
